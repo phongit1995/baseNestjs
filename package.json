@@ -31,6 +31,7 @@
     "class-validator": "^0.12.2",
     "memory-cache": "^0.2.0",
     "mongoose": "^5.10.0",
+    "promise-fs": "^2.1.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
