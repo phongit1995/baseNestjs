@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body ,UsePipes, Param} from '@nestjs/common';
+import { Controller, Get, Post, Body ,UsePipes, Param ,ParseBoolPipe} from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserCreateDTO, UserUpdateDto } from './dto/user.dto';
 import { ApiResult } from 'src/common/api-result';
 import {ValidationPipe} from './../common/validation.pipe';
-import {ApiTags,ApiResponse} from '@nestjs/swagger';
+import {ApiTags,ApiResponse ,ApiOperation,ApiHeader} from '@nestjs/swagger';
 import { CacheService } from 'src/common/cache/cache.service';
+import { MongooseIdPipe} from 'src/common/validation/mongooseId.validation';
 @ApiTags("user")
 @Controller('user')
 export class UserController {
@@ -21,7 +22,9 @@ export class UserController {
         this.Cache.setCache("user",listUser);
         return (new ApiResult().success(listUser));
     }
+
     @ApiResponse({ status: 201, description: 'create user successFully'})
+    @ApiOperation({ summary: 'Create New User'})
     @Post("create")
     @UsePipes(new ValidationPipe())
     async create(@Body()body:UserCreateDTO){
@@ -29,7 +32,8 @@ export class UserController {
         return (new ApiResult().success(user));
     }
     @Get("detial/:id")
-    async getDetial(@Param('id')id:string){
+    @ApiOperation({ summary: 'Get Detial User',})
+    async getDetial(@Param('id',MongooseIdPipe)id:string){
         let user = await this.User.getDetial(id);
         return (new ApiResult().success(user));
     }
