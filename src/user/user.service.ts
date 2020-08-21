@@ -17,4 +17,7 @@ export class UserService {
     async getDetial(id:string):Promise<User>{
         return this.UserModel.findById(id);
     }
+    async updateUser(id:string,data):Promise<User>{
+        return this.UserModel.findByIdAndUpdate(id,data);
+    }
 }

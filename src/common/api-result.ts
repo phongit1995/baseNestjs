@@ -36,7 +36,7 @@ export class ApiResult<T> {
       return this;
     }
   
-    public error(message: string, code: number, errorCode?: string) {
+    public error(message: string, code: number=400, errorCode?: string) {
       this.status = ApiStatus.ERROR;
       this.errorCode = errorCode;
       this.message = message;

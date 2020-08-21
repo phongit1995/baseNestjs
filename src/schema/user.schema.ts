@@ -1,6 +1,6 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document,Schema as MongoSchema } from 'mongoose';
 @Schema({autoCreate:true,collection:'user',timestamps:true,_id:true})
 export class User extends Document{
   @Prop({
@@ -8,7 +8,7 @@ export class User extends Document{
   })
   username:string;
   @Prop({
-      type:String
+    type:Number
   })
   password:number;
 }

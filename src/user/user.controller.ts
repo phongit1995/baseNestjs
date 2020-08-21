@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body ,UsePipes, Param} from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserCreateDTO } from './dto/user.dto';
+import { UserCreateDTO, UserUpdateDto } from './dto/user.dto';
 import { ApiResult } from 'src/common/api-result';
 import {ValidationPipe} from './../common/validation.pipe';
 import {ApiTags,ApiResponse} from '@nestjs/swagger';
@@ -32,5 +32,11 @@ export class UserController {
     async getDetial(@Param('id')id:string){
         let user = await this.User.getDetial(id);
         return (new ApiResult().success(user));
+    }
+    @ApiResponse({ status: 201, description: 'Update Success Full'})
+    @Post("update")
+    @UsePipes(new ValidationPipe())
+    updateUser(@Body() body:UserUpdateDto){
+        console.log(body);
     }
 }
